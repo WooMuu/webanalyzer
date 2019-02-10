@@ -12,8 +12,6 @@ import java.util.concurrent.Executors;
 @Configuration
 public class ThreadPoolConfig {
 
-    private static final int nThreads = 10;
-
     @Bean
     public ExecutorService myThreadExecutorPool() {
         return Executors.newCachedThreadPool();
