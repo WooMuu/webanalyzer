@@ -29,9 +29,9 @@ public class ResourceDownloader {
         ArrayList<Future<String>> skillFutures = new ArrayList<>();
         int pageSize = 90;
 //        String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=530&workExperience=0510&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=%E6%B5%8B%E8%AF%95&kt=3&_v=0.66292241&x-zp-page-request-id=41b93d1e989c4730bd50ddfb37e6ef9e-1549791028076-477391";
-        String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=653&industry=10100&workExperience=-1&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=java&kt=3&_v=0.12844542&x-zp-page-request-id=8eea868d93574748a36d79ec94f2e7aa-1548947204714-985513";
-//        String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=530&industry=10100&workExperience=-1&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=java&kt=3&_v=0.12844542&x-zp-page-request-id=8eea868d93574748a36d79ec94f2e7aa-1548947204714-985513";
-        for (int i = 0; i <= 1000; i += pageSize) {
+//        String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=653&industry=10100&workExperience=-1&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=java&kt=3&_v=0.12844542&x-zp-page-request-id=8eea868d93574748a36d79ec94f2e7aa-1548947204714-985513";
+        String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=530&industry=10100&workExperience=-1&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=java&kt=3&_v=0.12844542&x-zp-page-request-id=8eea868d93574748a36d79ec94f2e7aa-1548947204714-985513";
+        for (int i = 0; i <= 10000; i += pageSize) {
             HashMap<String, Object> parameters = new HashMap<>();
             parameters.put("start", 1);
             parameters.put("&pageSize", pageSize);
