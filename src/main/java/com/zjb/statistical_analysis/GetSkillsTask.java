@@ -24,13 +24,8 @@ public class GetSkillsTask implements Callable<String> {
         String strNew = str.toLowerCase();
         Matcher m = r.matcher(strNew);
         while (m.find()) {
-            String group = m.group();
-            if (chm.containsKey(group)) {
-                chm.put(group, (int) chm.get(group) + 1);
-            } else {
-                chm.put(group, 1);
-            }
-            ;
+            String keyWord = m.group();
+            chm.put(keyWord, (int) chm.getOrDefault(keyWord, 0) + 1);
         }
         return null;
     }
