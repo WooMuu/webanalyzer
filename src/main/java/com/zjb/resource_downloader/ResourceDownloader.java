@@ -3,7 +3,6 @@ package com.zjb.resource_downloader;
 import com.zjb.config.QueueAndTaskConfig;
 import com.zjb.config.ThreadPoolConfig;
 import com.zjb.resource_downloader.queue.EventQueue;
-import com.zjb.resource_downloader.queue.PageInfoQueue;
 import com.zjb.resource_parser.vo.SortedEntry;
 import com.zjb.url_analyzer.httprest.HttpRestTemplete;
 import org.junit.Test;
@@ -26,10 +25,9 @@ public class ResourceDownloader {
     @Autowired
     ExecutorService pool;
     @Autowired
-    private ConcurrentHashMap<String, Object> chm;
+    private ConcurrentHashMap<String, Object> cmap;
     @Autowired
     private EventQueue<String> urlQueue;
-
     @Autowired
     private EventQueue<String> pageInfoQueue;
 
@@ -37,7 +35,7 @@ public class ResourceDownloader {
     public void testGet() throws IOException, ExecutionException, InterruptedException {
         int pageSize = 90;
         pool.submit(new UrlConsumerTask(urlQueue, pool, pageInfoQueue));
-        pool.submit(new PageInfoConsumerTask(pageInfoQueue, pool, chm));
+        pool.submit(new PageInfoConsumerTask(pageInfoQueue, pool, cmap));
 //        String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=530&workExperience=0510&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=%E6%B5%8B%E8%AF%95&kt=3&_v=0.66292241&x-zp-page-request-id=41b93d1e989c4730bd50ddfb37e6ef9e-1549791028076-477391";
 //        String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=653&industry=10100&workExperience=-1&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=java&kt=3&_v=0.12844542&x-zp-page-request-id=8eea868d93574748a36d79ec94f2e7aa-1548947204714-985513";
         String baseURL = "https://fe-api.zhaopin.com/c/i/sou?cityId=530&industry=10100&workExperience=-1&education=-1&companyType=-1&employmentType=-1&jobWelfareTag=-1&kw=java&kt=3&_v=0.12844542&x-zp-page-request-id=8eea868d93574748a36d79ec94f2e7aa-1548947204714-985513";
@@ -48,10 +46,11 @@ public class ResourceDownloader {
             GetUrlOfPageTask task = new GetUrlOfPageTask(baseURL, parameters, urlQueue);
             pool.submit(task);
         }
-        pool.awaitTermination(2, TimeUnit.MINUTES);
+//        pool.awaitTermination(2, TimeUnit.MINUTES);
+        TimeUnit.MINUTES.sleep(2);
         ArrayList<SortedEntry> list = new ArrayList<>();
         long start = System.currentTimeMillis();
-        for (Map.Entry<String, Object> entry : chm.entrySet()) {
+        for (Map.Entry<String, Object> entry : cmap.entrySet()) {
             SortedEntry sortedEntry = new SortedEntry(entry.getKey(), (int) entry.getValue());
             list.add(sortedEntry);
         }

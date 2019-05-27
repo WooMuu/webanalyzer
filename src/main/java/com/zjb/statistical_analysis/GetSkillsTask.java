@@ -12,14 +12,14 @@ import java.util.regex.Pattern;
  */
 public class GetSkillsTask implements Callable<String> {
 
-    private ConcurrentHashMap<String, Object> chm;
+    private ConcurrentHashMap<String, Object> cmap;
     private String pageInfo;
     private static final String pattern = "[a-zA-Z]+('?[a-zA-Z])?";
     private final Pattern r = Pattern.compile(pattern);
 
-    public GetSkillsTask(String pageInfo, ConcurrentHashMap<String, Object> chm) {
+    public GetSkillsTask(String pageInfo, ConcurrentHashMap<String, Object> cmap) {
         this.pageInfo = pageInfo;
-        this.chm = chm;
+        this.cmap = cmap;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class GetSkillsTask implements Callable<String> {
         Matcher m = r.matcher(strNew);
         while (m.find()) {
             String keyWord = m.group();
-            chm.put(keyWord, (int) chm.getOrDefault(keyWord, 0) + 1);
+            cmap.put(keyWord, (int) cmap.getOrDefault(keyWord, 0) + 1);
         }
         return null;
     }

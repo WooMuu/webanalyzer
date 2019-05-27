@@ -15,12 +15,12 @@ public class PageInfoConsumerTask implements Runnable {
 
     private EventQueue<String> pageInfoQueue;
     private ExecutorService pool;
-    private ConcurrentHashMap<String, Object> chm;
+    private ConcurrentHashMap<String, Object> cmap;
 
-    public PageInfoConsumerTask(EventQueue<String> pageInfoQueue, ExecutorService pool, ConcurrentHashMap<String, Object> chm) {
+    public PageInfoConsumerTask(EventQueue<String> pageInfoQueue, ExecutorService pool, ConcurrentHashMap<String, Object> cmap) {
         this.pageInfoQueue = pageInfoQueue;
         this.pool = pool;
-        this.chm = chm;
+        this.cmap = cmap;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class PageInfoConsumerTask implements Runnable {
             try {
                 String info = pageInfoQueue.take();
                 if (info == null) continue;
-                GetSkillsTask getSkillsTask = new GetSkillsTask(info, chm);
+                GetSkillsTask getSkillsTask = new GetSkillsTask(info, cmap);
                 pool.submit(getSkillsTask);
             } catch (InterruptedException e) {
                 e.printStackTrace();
