@@ -94,12 +94,14 @@ public class HttpRestTemplete {
         return response.toString();
     }
 
-    public void getResponseHeaders() {
+    private void getResponseHeaders() {
         //获取响应信息编码方式
         String contentType = uc.getContentType();
-        int encodingStart = contentType.indexOf("charset=");
-        if (encodingStart != -1) {
-            encoding = contentType.substring(encodingStart + 8);
+        if (contentType != null) {
+            int encodingStart = contentType.indexOf("charset=");
+            if (encodingStart != -1) {
+                encoding = contentType.substring(encodingStart + 8);
+            }
         }
         length = uc.getContentLength();
         //如果资源大小超过int的最大值，返回-1，java7增加了getContentLengthLong ()返回long
